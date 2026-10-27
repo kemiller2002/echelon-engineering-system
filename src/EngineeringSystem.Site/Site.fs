@@ -252,7 +252,7 @@ module Site =
         let gates =
             """<div class="site-table-wrap" role="region" aria-label="Acceptance gate status" tabindex="0"><ef-print-table><table><caption>Verification status is updated only by executed evidence.</caption><thead><tr><th scope="col">Gate</th><th scope="col">Requirement</th><th scope="col">Status</th></tr></thead><tbody>
 <tr><th scope="row">G01-G04</th><td>F# build, corporate identity, Forma, Folio</td><td>PASS</td></tr>
-<tr><th scope="row">G05-G06</th><td>Committed lockfile and clean-checkout reproduction</td><td>NOT RUN until pushed checkpoint</td></tr>
+<tr><th scope="row">G05-G06</th><td>Committed lockfile and clean-checkout reproduction</td><td>PASS</td></tr>
 <tr><th scope="row">G07-G09</th><td>Responsive browser, accessibility, and print</td><td>PASS</td></tr>
 <tr><th scope="row">G10</th><td>GitHub Pages deployment</td><td>NOT RUN</td></tr>
 <tr><th scope="row">G11-G13</th><td>Five diagrams, source-linked rehearsal evidence, verification report</td><td>PASS</td></tr>
@@ -261,7 +261,7 @@ module Site =
         String.concat "\n"
             [ section "sources" "Reference" "Source authority and versioned limitations" "The website is an explanatory layer. Canonical repositories continue to own their contracts and evidence." sources
               section "acceptance" "Acceptance" "Gates remain truthful while work is in progress" "A committed implementation is not sufficient evidence of successful deployment or accessibility." gates
-              section "limitations" "Known limitations" "Unresolved conditions are part of the documentation" "Unavailable evidence stays visible even when the surrounding implementation is complete." """<aside class="ef-callout" data-ef-callout="caution" aria-labelledby="limitations-note"><p class="ef-callout__label" id="limitations-note">Current limitation</p><p>Rehearsal 5 has no published run evidence, so no cross-rehearsal efficiency claim is possible. Clean-checkout and deployed-site gates remain NOT RUN until the branch is pushed and Pages publishes the verified revision.</p></aside>""" ]
+              section "limitations" "Known limitations" "Unresolved conditions are part of the documentation" "Unavailable evidence stays visible even when the surrounding implementation is complete." """<aside class="ef-callout" data-ef-callout="caution" aria-labelledby="limitations-note"><p class="ef-callout__label" id="limitations-note">Current limitation</p><p>Rehearsal 5 has no published run evidence, so no cross-rehearsal efficiency claim is possible. The deployed-site gate remains NOT RUN until Pages publishes the merged revision and the production URL is inspected.</p></aside>""" ]
 
     let pages =
         [ { Slug = ""

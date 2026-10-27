@@ -26,7 +26,7 @@ external or clean-checkout check completes.
 | `npm run test:print` | PASS — 6 checks; five tagged US Letter PDFs generated. |
 | Poppler `pdfinfo`, `pdftoppm`, and visual page inspection | PASS — 19 rendered pages reviewed after correcting a print-width defect; tables, diagrams, headings, page breaks, and grayscale/background-disabled output are readable. |
 | `git diff --check` | PASS. |
-| Fresh-checkout `npm ci`, build, and tests | NOT RUN — scheduled after the first pushed checkpoint. |
+| Fresh-checkout `npm ci`, build, and tests | PASS — pushed commit `ce41cc4` was cloned into a new directory; exact dependencies installed and all 22 tests passed. |
 | Production URL inspection | NOT RUN — scheduled after merge and Pages deployment. |
 
 ## Browser and accessibility coverage
@@ -52,8 +52,8 @@ external or clean-checkout check completes.
 | G02 Corporate visual identity | PASS | Exact token/font assertions and four reviewed screenshots under `evidence/branding/screenshots/`; intentional differences in `docs/branding-contract.md`. |
 | G03 Forma components | PASS | Pinned 0.9.0 marketing/theme assets, public component contracts, no-script fallback, focus/reflow/axe checks. |
 | G04 Folio printable documents | PASS | Pinned 0.4.1 elements and stylesheet; five actual PDFs; print primitive assertions and visual review. |
-| G05 Dependency lockfile committed | NOT RUN | `package-lock.json` exists; gate changes only after the checkpoint commit. |
-| G06 Clean checkout builds reproducibly | NOT RUN | Fresh-checkout check pending. |
+| G05 Dependency lockfile committed | PASS | `package-lock.json` is committed at `ce41cc4`; a fresh `npm ci` installed its exact dependency graph. |
+| G06 Clean checkout builds reproducibly | PASS | Fresh shallow clone of pushed commit `ce41cc4`: `npm ci` followed by `npm test`; F# build had zero warnings/errors and all 22 tests passed. |
 | G07 Responsive browser tests | PASS | Required six widths across all routes plus long-content stress. |
 | G08 Accessibility tests | PASS | Keyboard, focus, landmarks, reduced motion, 200% reflow, text equivalents, and zero axe violations. |
 | G09 Print tests | PASS | Five tagged Letter PDFs, 3–4 pages each, visually inspected from Poppler renders. |
@@ -66,5 +66,5 @@ external or clean-checkout check completes.
 
 - Rehearsal 5 has no published run evidence at revision `52e9a74c…`; a
   cross-rehearsal performance claim is blocked by missing evidence.
-- G06 and G10 remain NOT RUN until the pushed branch is tested from a fresh
-  checkout and the deployed `main` revision is inspected.
+- G10 remains NOT RUN until the merged `main` revision is published and the
+  production URL is inspected.
