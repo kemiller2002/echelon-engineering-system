@@ -1,0 +1,9 @@
+{
+  "name": "echelon-engineering-site",
+  "private": true,
+  "version": "0.1.0",
+  "dependencies": {
+    "@echelon-foundry/design-system": "0.9.1",
+    "@echelon-foundry/print-components": "0.4.2"
+  }
+}
