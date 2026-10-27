@@ -1,0 +1,44 @@
+name: Build and publish engineering documentation
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Build
+        run: dotnet build src/EngineeringSystem.Site/EngineeringSystem.Site.fsproj --configuration Release
+      - name: Generate
+        run: dotnet run --project src/EngineeringSystem.Site/EngineeringSystem.Site.fsproj --configuration Release --no-build -- dist
+      - name: Verify routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          for route in index.html system/index.html process/index.html agents/index.html components/index.html research/index.html indy-init/index.html tour/index.html reference/index.html; do
+            test -s "dist/$route"
+          done
+          test -s dist/styles.css
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
