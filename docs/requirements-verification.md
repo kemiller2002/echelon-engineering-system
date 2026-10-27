@@ -7,8 +7,10 @@ external or clean-checkout check completes.
 ## Baseline and implementation
 
 - Repository: `kemiller2002/echelon-engineering-system`
-- Branch: `codex/complete-engineering-system-site`
+- Delivery branch and pull request: `codex/complete-engineering-system-site`,
+  [#1](https://github.com/kemiller2002/echelon-engineering-system/pull/1)
 - Starting revision: `99e4fcbd489fbd98ab897ae083034e7523e1456d`
+- Deployed merge revision: `6849e0907e40cc46533689d3f25ddcf54f1a4da7`
 - Baseline defect: the existing F# project failed with FS0010 in `Program.fs`.
 - Dependency defects: Forma 0.9.1 did not exist in the package registry; Folio
   0.4.2 did not exist as a published release. The implementation pins the
@@ -27,7 +29,7 @@ external or clean-checkout check completes.
 | Poppler `pdfinfo`, `pdftoppm`, and visual page inspection | PASS — 19 rendered pages reviewed after correcting a print-width defect; tables, diagrams, headings, page breaks, and grayscale/background-disabled output are readable. |
 | `git diff --check` | PASS. |
 | Fresh-checkout `npm ci`, build, and tests | PASS — pushed commit `ce41cc4` was cloned into a new directory; exact dependencies installed and all 22 tests passed. |
-| Production URL inspection | NOT RUN — scheduled after merge and Pages deployment. |
+| Production URL inspection | PASS — Pages workflow [40547706606](https://github.com/kemiller2002/echelon-engineering-system/actions/runs/40547706606) built and deployed merge `6849e09`; 5 live Chromium checks passed at `https://engineering.echelonfoundry.com/`. |
 
 ## Browser and accessibility coverage
 
@@ -57,7 +59,7 @@ external or clean-checkout check completes.
 | G07 Responsive browser tests | PASS | Required six widths across all routes plus long-content stress. |
 | G08 Accessibility tests | PASS | Keyboard, focus, landmarks, reduced motion, 200% reflow, text equivalents, and zero axe violations. |
 | G09 Print tests | PASS | Five tagged Letter PDFs, 3–4 pages each, visually inspected from Poppler renders. |
-| G10 GitHub Pages deployment | NOT RUN | Repository setting is ready; workflow and deployed SHA not yet verified. |
+| G10 GitHub Pages deployment | PASS | Workflow run 40547706606 deployed merge `6849e09`; all 9 production routes, internal links, Forma/Folio assets, console, mobile reflow, axe, and print media passed live verification. |
 | G11 Five accessible diagrams | PASS | D01–D05 use Forma's static diagram contract and relationship lists without JavaScript. |
 | G12 Rehearsal evidence source-linked | PASS | Exact revisions and primary report/verdict/ledger/clock links; observed/interpreted/hypothesized states remain separate. |
 | G13 Requirements verification report | PASS | This report records every gate without converting unavailable evidence to success. |
@@ -66,5 +68,5 @@ external or clean-checkout check completes.
 
 - Rehearsal 5 has no published run evidence at revision `52e9a74c…`; a
   cross-rehearsal performance claim is blocked by missing evidence.
-- G10 remains NOT RUN until the merged `main` revision is published and the
-  production URL is inspected.
+- No website acceptance gate remains blocked. The unavailable Rehearsal 5
+  evidence remains a documented source limitation, not a website defect.
