@@ -2,8 +2,20 @@
   "name": "echelon-engineering-site",
   "private": true,
   "version": "0.1.0",
+  "scripts": {
+    "build": "dotnet build src/EngineeringSystem.Site/EngineeringSystem.Site.fsproj --configuration Release && dotnet run --project src/EngineeringSystem.Site/EngineeringSystem.Site.fsproj --configuration Release --no-build -- dist",
+    "test": "npm run build && playwright test",
+    "test:browser": "playwright test tests/site.spec.mjs",
+    "test:branding": "playwright test --config=playwright.branding.config.mjs",
+    "test:print": "playwright test tests/print.spec.mjs",
+    "test:all": "npm run build && playwright test"
+  },
   "dependencies": {
-    "@echelon-foundry/design-system": "0.9.1",
-    "@echelon-foundry/print-components": "0.4.2"
+    "@echelon-foundry/design-system": "0.9.0",
+    "@echelon-foundry/print-components": "https://github.com/kemiller2002/folio/releases/download/v0.4.1/echelon-foundry-print-components-0.4.1.tgz"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.63.0"
   }
 }

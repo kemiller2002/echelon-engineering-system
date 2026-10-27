@@ -5,5 +5,8 @@
     <LangVersion>preview</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
-  <ItemGroup><Compile Include="Program.fs" /></ItemGroup>
+  <ItemGroup>
+    <Compile Include="Site.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
 </Project>
