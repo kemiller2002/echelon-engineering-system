@@ -68,11 +68,11 @@ module Program =
         sprintf """<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="%s"><title>%s | Echelon Engineering</title>
-<link rel="stylesheet" href="%sstyles.css"></head>
-<body><a class="skip" href="#main">Skip to content</a><header><div class="brand">ECHELON / ENGINEERING</div><nav aria-label="Main navigation">%s</nav></header>
-<main id="main"><p class="eyebrow">Engineering system / Preview</p><h1>%s</h1><p class="lead">%s</p><div class="grid">%s</div></main>
+<link rel="stylesheet" href="%sassets/forma/all.css"><link rel="stylesheet" href="%sstyles.css"><link rel="stylesheet" media="print" href="%sassets/folio/print.css"></head>
+<body class="ef-site" data-ef-theme="light"><a class="skip" href="#main">Skip to content</a><header><div class="brand">ECHELON / ENGINEERING</div><nav aria-label="Main navigation">%s</nav></header>
+<main id="main"><ef-print-document><p class="eyebrow">Engineering system / Preview</p><h1>%s</h1><p class="lead">%s</p><div class="grid">%s</div></ef-print-document></main>
 <footer>Documentation preview · Claims require source verification · <a href="https://github.com/kemiller2002/echelon-engineering-system">Source repository</a></footer>
-</body></html>""" (encode page.Summary) (encode page.Title) depth links (encode page.Title) (encode page.Summary) sections
+</body></html>""" (encode page.Summary) (encode page.Title) depth depth depth depth links (encode page.Title) (encode page.Summary) sections
 
     [<EntryPoint>]
     let main argv =
@@ -82,16 +82,16 @@ module Program =
             let folder = if page.Slug = "" then output else Path.Combine(output, page.Slug)
             Directory.CreateDirectory(folder) |> ignore
             File.WriteAllText(Path.Combine(folder, "index.html"), render page)
-        File.WriteAllText(Path.Combine(output, "styles.css"), """/* Provisional Forma-aligned structure. Brand tokens pending corporate source verification. */
-:root{color-scheme:light;--ink:#17242c;--paper:#fafbf9;--accent:#146b71;--line:#c9d4d5;--space:clamp(1rem,3vw,2rem)}
-*{box-sizing:border-box}body{margin:0;font:1rem/1.6 system-ui,sans-serif;background:var(--paper);color:var(--ink)}
-header,main,footer{padding:var(--space);max-width:78rem;margin:auto}header{border-bottom:1px solid var(--line)}.brand{font-weight:750;letter-spacing:.09em}
-nav{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin-top:1rem}a{color:var(--accent);overflow-wrap:anywhere}
-a:focus-visible{outline:3px solid var(--accent);outline-offset:4px}.skip{position:absolute;left:-100vw}.skip:focus{left:1rem;top:1rem;background:white;padding:.5rem;z-index:2}
+        File.WriteAllText(Path.Combine(output, "styles.css"), """/* Layout-only overrides. Forma owns foundational presentation; corporate brand parity pending verification. */
+:root{--space:clamp(1rem,3vw,2rem)}
+*{box-sizing:border-box}body{margin:0;font:1rem/1.6 system-ui,sans-serif}
+header,main,footer{padding:var(--space);max-width:78rem;margin:auto}header{border-bottom:1px solid currentColor}.brand{font-weight:750;letter-spacing:.09em}
+nav{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin-top:1rem}a{overflow-wrap:anywhere}
+a:focus-visible{outline:3px solid currentColor;outline-offset:4px}.skip{position:absolute;left:-100vw}.skip:focus{left:1rem;top:1rem;background:white;padding:.5rem;z-index:2}
 h1{font-size:clamp(2rem,5vw,4rem);line-height:1.12;max-width:20ch;overflow-wrap:anywhere}.lead{font-size:clamp(1.1rem,2vw,1.4rem);max-width:65ch}
 .eyebrow{text-transform:uppercase;letter-spacing:.1em;font-weight:700}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:1rem;margin-block:2rem}
-.panel{border:1px solid var(--line);border-radius:.8rem;padding:1.5rem;min-width:0}.panel h2{line-height:1.2;overflow-wrap:anywhere}.panel p{overflow-wrap:anywhere}
-footer{border-top:1px solid var(--line)}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+.panel{border:1px solid currentColor;border-radius:.8rem;padding:1.5rem;min-width:0}.panel h2{line-height:1.2;overflow-wrap:anywhere}.panel p{overflow-wrap:anywhere}
+footer{border-top:1px solid currentColor}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 """)
         printfn "Generated %d pages into %s" pages.Length output
         0
