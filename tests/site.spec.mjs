@@ -15,6 +15,7 @@ for (const width of widths) {
     for (const route of routes) {
       await page.goto(route);
       await expect(page.locator("h1")).toBeVisible();
+    await expect(page.locator('link[href*="styles.css?v="]')).toHaveAttribute("href", /styles\.css\?v=[0-9a-f]{12}$/);
       const overflow = await horizontalOverflow(page);
       expect(overflow, `${route} overflow at ${width}px`).toEqual({ document: 0, body: 0 });
     }
