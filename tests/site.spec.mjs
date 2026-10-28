@@ -113,6 +113,8 @@ test("four static diagrams expose equivalent text relationships", async ({ page 
     await expect(diagram).toHaveCount(1);
     await expect(diagram.locator("figcaption")).not.toBeEmpty();
     await expect(diagram.locator(".ef-diagram__viewport")).toHaveAttribute("tabindex", "0");
+    await expect(diagram.locator("marker")).toHaveAttribute("markerUnits", "userSpaceOnUse");
+    await expect(diagram.locator("marker")).toHaveAttribute("markerWidth", "8");
     expect(await diagram.locator(".ef-diagram__relations li").count()).toBeGreaterThanOrEqual(4);
   }
 });
