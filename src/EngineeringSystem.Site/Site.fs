@@ -3,6 +3,8 @@ namespace Echelon.EngineeringSystem
 open System
 open System.IO
 open System.Net
+open System.Security.Cryptography
+open System.Text
 open System.Text.RegularExpressions
 
 type EvidenceStatus =
@@ -343,7 +345,7 @@ module Site =
             $"<li><a class=\"ef-site-nav__link\" href=\"{hrefFor currentSlug page.Slug}\"{current}{variant}>{encode page.NavLabel}</a></li>")
         |> String.concat ""
 
-    let private renderPage page =
+    let private renderPage stylesVersion page =
         let root = rootFor page.Slug
         let sourceUrl = "https://github.com/kemiller2002/echelon-engineering-system"
 
@@ -361,7 +363,7 @@ module Site =
   <link rel="stylesheet" href="{root}assets/folio/print.css">
   <link rel="stylesheet" href="{root}assets/forma/forma-all.css">
   <link rel="stylesheet" href="{root}assets/forma/forma-marketing-theme-echelon.css">
-  <link rel="stylesheet" href="{root}styles.css">
+  <link rel="stylesheet" href="{root}styles.css?v={stylesVersion}">
   <script type="module" src="{root}assets/folio/register.js"></script>
 </head>
 <body class="ef-site" data-ef-layout="documentation">
@@ -476,10 +478,17 @@ ef-print-finding, ef-print-integrity { max-inline-size: var(--ef-layout-measure)
         Directory.CreateDirectory(Path.GetDirectoryName(destination)) |> ignore
         File.Copy(source, destination, true)
 
-    let private writePage output page =
+    let private contentVersion (value: string) =
+        value
+        |> Encoding.UTF8.GetBytes
+        |> SHA256.HashData
+        |> Convert.ToHexString
+        |> fun hash -> hash.ToLowerInvariant().Substring(0, 12)
+
+    let private writePage output stylesVersion page =
         let folder = if String.IsNullOrEmpty page.Slug then output else Path.Combine(output, page.Slug)
         Directory.CreateDirectory(folder) |> ignore
-        File.WriteAllText(Path.Combine(folder, "index.html"), renderPage page)
+        File.WriteAllText(Path.Combine(folder, "index.html"), renderPage stylesVersion page)
 
     let private validateGeneratedSite output =
         let expectedRoutes = pages |> List.map (fun page -> if page.Slug = "" then "index.html" else Path.Combine(page.Slug, "index.html"))
@@ -540,7 +549,8 @@ ef-print-finding, ef-print-integrity { max-inline-size: var(--ef-layout-measure)
         copyRequired (Path.Combine(folioRoot, "styles", "print.css")) (Path.Combine(output, "assets", "folio", "print.css"))
         copyRequired (Path.Combine(folioRoot, "components", "register.js")) (Path.Combine(output, "assets", "folio", "register.js"))
 
-        pages |> List.iter (writePage output)
+        let stylesVersion = contentVersion styles
+        pages |> List.iter (writePage output stylesVersion)
         File.WriteAllText(Path.Combine(output, "styles.css"), styles)
         File.WriteAllText(Path.Combine(output, ".nojekyll"), "")
 
