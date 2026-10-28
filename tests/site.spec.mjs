@@ -119,6 +119,27 @@ test("four static diagrams expose equivalent text relationships", async ({ page 
   }
 });
 
+test("system architecture uses a non-scrolling mobile relationship layout", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/system/");
+
+  const diagram = page.locator("#d01");
+  await expect(diagram.locator(":scope > .site-diagram-desktop")).toBeHidden();
+  await expect(diagram.locator(":scope > .site-diagram-mobile")).toBeVisible();
+  await expect(diagram.locator(".site-diagram-mobile__path")).toHaveCount(4);
+  await expect(diagram.locator(".site-diagram-mobile__arrow")).toHaveCount(7);
+
+  const mobileSize = await diagram.locator(":scope > .site-diagram-mobile").evaluate(element => ({
+    clientWidth: element.clientWidth,
+    scrollWidth: element.scrollWidth,
+  }));
+  expect(mobileSize.scrollWidth).toBeLessThanOrEqual(mobileSize.clientWidth);
+
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await expect(diagram.locator(":scope > .site-diagram-desktop")).toBeVisible();
+  await expect(diagram.locator(":scope > .site-diagram-mobile")).toBeHidden();
+});
+
 test("the removed Indy Init page is absent from routes and navigation", async ({ page }) => {
   const response = await page.goto("/indy-init/");
   expect(response?.status()).toBe(404);

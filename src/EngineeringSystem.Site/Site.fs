@@ -75,7 +75,7 @@ module Site =
         """<ef-print-figure><figure class="ef-diagram" id="d01" aria-labelledby="d01-title">
 <figcaption id="d01-title">D01 — Echelon system architecture</figcaption>
 <p>Solid lines are relationships stated by the cited sources. The dashed line is an optional browser capability that this website does not use. Position does not imply ownership.</p>
-<div class="ef-diagram__viewport" tabindex="0" role="group" aria-label="Echelon system architecture canvas, scroll to see all systems">
+<div class="ef-diagram__viewport site-diagram-desktop" tabindex="0" role="group" aria-label="Echelon system architecture canvas, scroll to see all systems">
 <div class="ef-diagram__canvas" style="--ef-diagram-canvas-w: 660px; --ef-diagram-canvas-h: 570px;">
 <svg class="ef-diagram__wires" viewBox="0 0 660 570" aria-hidden="true" focusable="false"><defs><marker id="d01-arrow" class="ef-diagram-marker" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>
 <path class="ef-diagram-connector" d="M220 73 H190 V165 H198" marker-end="url(#d01-arrow)"/><path class="ef-diagram-connector" d="M440 73 H470 V165 H462" marker-end="url(#d01-arrow)"/>
@@ -91,6 +91,39 @@ module Site =
 <article class="ef-diagram-node" aria-labelledby="d01-folio" style="--ef-diagram-x: 470px; --ef-diagram-y: 300px; --ef-diagram-w: 180px;"><p class="ef-diagram-node__kind">Print presentation</p><h3 class="ef-diagram-node__label" id="d01-folio">Folio</h3><p class="ef-diagram-node__description">Documents and reports</p></article>
 <article class="ef-diagram-node" data-ef-status="pending" aria-labelledby="d01-limen" style="--ef-diagram-x: 240px; --ef-diagram-y: 430px; --ef-diagram-w: 180px;"><p class="ef-diagram-node__kind">Optional boundary</p><h3 class="ef-diagram-node__label" id="d01-limen">Limen</h3><p class="ef-diagram-node__description">Browser capability, no domain authority</p></article>
 </div></div>
+<div class="site-diagram-mobile" aria-hidden="true">
+  <p class="site-diagram-mobile__title">Mobile relationship paths</p>
+  <div class="site-diagram-mobile__path">
+    <p class="site-diagram-mobile__path-label">Governed delivery</p>
+    <article class="ef-diagram-node"><p class="ef-diagram-node__kind">Repository authority</p><h3 class="ef-diagram-node__label">Praxis</h3></article>
+    <span class="site-diagram-mobile__arrow">↓</span>
+    <article class="ef-diagram-node"><p class="ef-diagram-node__kind">Method authority</p><h3 class="ef-diagram-node__label">Ordo</h3></article>
+    <span class="site-diagram-mobile__arrow">↓</span>
+    <article class="ef-diagram-node"><p class="ef-diagram-node__kind">Domain application</p><h3 class="ef-diagram-node__label">Causa</h3></article>
+    <span class="site-diagram-mobile__arrow">↓</span>
+    <article class="ef-diagram-node"><p class="ef-diagram-node__kind">Screen presentation</p><h3 class="ef-diagram-node__label">Forma</h3></article>
+  </div>
+  <div class="site-diagram-mobile__path" data-ef-line="dashed">
+    <p class="site-diagram-mobile__path-label">Optional browser boundary</p>
+    <article class="ef-diagram-node"><p class="ef-diagram-node__kind">Domain application</p><h3 class="ef-diagram-node__label">Causa</h3></article>
+    <span class="site-diagram-mobile__arrow">⇣</span>
+    <article class="ef-diagram-node" data-ef-status="pending"><p class="ef-diagram-node__kind">Optional boundary</p><h3 class="ef-diagram-node__label">Limen</h3></article>
+  </div>
+  <div class="site-diagram-mobile__path">
+    <p class="site-diagram-mobile__path-label">Quality evidence</p>
+    <article class="ef-diagram-node"><p class="ef-diagram-node__kind">Repository authority</p><h3 class="ef-diagram-node__label">Praxis</h3></article>
+    <span class="site-diagram-mobile__arrow">↓</span>
+    <article class="ef-diagram-node"><p class="ef-diagram-node__kind">Quality evidence</p><h3 class="ef-diagram-node__label">Dokimos</h3></article>
+  </div>
+  <div class="site-diagram-mobile__path">
+    <p class="site-diagram-mobile__path-label">Experience and print evidence</p>
+    <article class="ef-diagram-node"><p class="ef-diagram-node__kind">Repository authority</p><h3 class="ef-diagram-node__label">Praxis</h3></article>
+    <span class="site-diagram-mobile__arrow">↓</span>
+    <article class="ef-diagram-node"><p class="ef-diagram-node__kind">Experience evidence</p><h3 class="ef-diagram-node__label">Visual Engineering</h3></article>
+    <span class="site-diagram-mobile__arrow">↓</span>
+    <article class="ef-diagram-node"><p class="ef-diagram-node__kind">Print presentation</p><h3 class="ef-diagram-node__label">Folio</h3></article>
+  </div>
+</div>
 <ol class="ef-diagram__relations" aria-label="D01 relationships"><li>Ordo emits versioned decision and transition observations that Praxis can preserve without taking over Ordo's semantic authority.</li><li>Dokimos owns code-quality evidence while Praxis owns process telemetry and Ordo owns application-state legality.</li><li>Visual Engineering supplies conformance criteria for Forma screen output and Folio print output.</li><li>Rehearsal 4 applied Praxis governance to the Causa implementation.</li><li>Causa's rehearsal UI used Forma for screen presentation and Folio for printable reports.</li><li>Causa used Limen as a browser-capability boundary; this is a documented consumer relationship, not a requirement for every site.</li></ol>
 </figure></ef-print-figure>"""
 
@@ -375,6 +408,17 @@ module Site =
 .site-table-wrap table { min-inline-size: min(42rem, 100%); }
 .site-table-wrap:focus-visible { outline: var(--ef-focus-ring-width) solid var(--ef-color-focus-ring); outline-offset: var(--ef-focus-ring-offset); }
 ef-print-finding, ef-print-integrity { max-inline-size: var(--ef-layout-measure); }
+.site-diagram-mobile { display: none; }
+@media (max-width: 47.99rem) {
+  #d01 > .site-diagram-desktop { display: none; }
+  #d01 > .site-diagram-mobile { display: grid; gap: var(--ef-primitive-spacing-5, 1.5rem); min-inline-size: 0; }
+  .site-diagram-mobile__title { margin: 0; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .site-diagram-mobile__path { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--ef-primitive-spacing-2, 0.5rem); min-inline-size: 0; padding: var(--ef-primitive-spacing-4, 1rem); border: 1px solid var(--ef-color-border-subtle, #e3e0d7); background: var(--ef-color-surface-primary, #f2efe7); }
+  .site-diagram-mobile__path-label { margin: 0 0 var(--ef-primitive-spacing-1, 0.25rem); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .site-diagram-mobile .ef-diagram-node { position: relative; inset: auto; left: auto; top: auto; inline-size: auto; min-inline-size: 0; }
+  .site-diagram-mobile__arrow { display: grid; min-block-size: 2rem; place-items: center; color: var(--ef-color-border-functional, #3a403c); font-size: 1.75rem; font-weight: 700; line-height: 1; }
+  .site-diagram-mobile__path[data-ef-line="dashed"] .site-diagram-mobile__arrow { border-inline-start: 2px dashed var(--ef-color-border-functional, #3a403c); inline-size: 0; justify-self: center; color: transparent; }
+}
 @media print {
   :root { --ef-print-page-size: Letter; --ef-print-page-margin: 0.7in; --ef-print-font-family: Manrope, Arial, sans-serif; --ef-print-text: #171a18; --ef-print-muted: #3a403c; --ef-print-rule: #686d68; --ef-print-accent: #905831; --ef-print-surface: transparent; --ef-print-code-surface: transparent; }
   .ef-site-header, .ef-site-footer, .ef-skip-link, .ef-actions { display: none !important; }
@@ -390,6 +434,8 @@ ef-print-finding, ef-print-integrity { max-inline-size: var(--ef-layout-measure)
   .ef-diagram-node__kind, .ef-diagram-node__description { font-size: 7.5pt; }
   .ef-diagram__relations { display: block; }
   .ef-diagram__relations li { margin-block: 0.08in; }
+  #d01 > .site-diagram-desktop { display: block !important; }
+  #d01 > .site-diagram-mobile { display: none !important; }
   .ef-card-grid { break-inside: avoid; }
   .site-table-wrap { overflow: visible; }
   .site-table-wrap table { min-inline-size: 0; font-size: 8.5pt; }
