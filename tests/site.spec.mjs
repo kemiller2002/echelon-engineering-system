@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-const routes = ["/", "/system/", "/process/", "/agents/", "/components/", "/research/", "/indy-init/", "/tour/", "/reference/"];
+const routes = ["/", "/system/", "/process/", "/agents/", "/components/", "/research/", "/tour/", "/reference/"];
 const widths = [320, 390, 768, 851, 1000, 1280];
 
 const horizontalOverflow = page => page.evaluate(() => ({
@@ -99,13 +99,12 @@ test("empty and missing evidence states remain understandable", async ({ page })
   await expect(page.getByRole("row", { name: /Causa/ })).toContainText("Documented");
 });
 
-test("five static diagrams expose equivalent text relationships", async ({ page }) => {
+test("four static diagrams expose equivalent text relationships", async ({ page }) => {
   const expected = [
     ["/system/", "#d01"],
     ["/process/", "#d02"],
     ["/agents/", "#d03"],
     ["/components/", "#d04"],
-    ["/indy-init/", "#d05"],
   ];
 
   for (const [route, id] of expected) {
@@ -116,6 +115,13 @@ test("five static diagrams expose equivalent text relationships", async ({ page 
     await expect(diagram.locator(".ef-diagram__viewport")).toHaveAttribute("tabindex", "0");
     expect(await diagram.locator(".ef-diagram__relations li").count()).toBeGreaterThanOrEqual(4);
   }
+});
+
+test("the removed Indy Init page is absent from routes and navigation", async ({ page }) => {
+  const response = await page.goto("/indy-init/");
+  expect(response?.status()).toBe(404);
+  await page.goto("/");
+  await expect(page.getByRole("navigation").getByRole("link", { name: "Indy Init" })).toHaveCount(0);
 });
 
 test("axe finds no WCAG 2.2 A or AA violations", async ({ page }) => {

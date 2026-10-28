@@ -7,7 +7,6 @@ const documents = [
   { route: "/components/", file: "echelon-component-inventory.pdf", heading: "One bounded job per system" },
   { route: "/process/", file: "echelon-engineering-lifecycle.pdf", heading: "From requirement to verified implementation" },
   { route: "/research/", file: "echelon-research-summaries.pdf", heading: "Observed, interpreted, or still hypothesized" },
-  { route: "/indy-init/", file: "echelon-indy-init-rehearsals.pdf", heading: "Practice produces evidence, not mythology" },
 ];
 
 mkdirSync(output, { recursive: true });

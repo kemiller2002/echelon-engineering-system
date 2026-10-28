@@ -1,8 +1,7 @@
 # Echelon Engineering System
 
 Permanent, evidence-led documentation for Echelon Foundry's engineering
-architecture, method, components, agent decision boundaries, research, and Indy
-Init rehearsals.
+architecture, method, components, agent decision boundaries, and research.
 
 The application is a static publisher written in F#. It uses Forma 0.9.0 for
 the web, marketing, and diagram presentation contracts and Folio 0.4.1 for
@@ -44,11 +43,11 @@ Then open `http://127.0.0.1:4173/`.
 
 ```sh
 npm run test:browser   # responsive, keyboard, semantics, diagrams, axe, print media
-npm run test:print     # five tagged Letter PDFs under output/pdf/
+npm run test:print     # four tagged Letter PDFs under output/pdf/
 npm run test:branding  # requires the corporate reference build at /private/tmp/echelon-foundry-branding/dist
 ```
 
-The browser suite covers all nine routes at 320, 390, 768, 851, 1000, and
+The browser suite covers all eight routes at 320, 390, 768, 851, 1000, and
 1280 CSS pixels, 200% text scaling, reduced motion, keyboard focus, long-token
 stress, missing styles, missing evidence, diagram text equivalents, and WCAG
 2.2 A/AA axe checks. The print suite creates:
@@ -57,7 +56,6 @@ stress, missing styles, missing evidence, diagram text equivalents, and WCAG
 - [component inventory](output/pdf/echelon-component-inventory.pdf)
 - [engineering lifecycle](output/pdf/echelon-engineering-lifecycle.pdf)
 - [research summaries](output/pdf/echelon-research-summaries.pdf)
-- [Indy Init rehearsals](output/pdf/echelon-indy-init-rehearsals.pdf)
 
 ## Content and evidence
 
